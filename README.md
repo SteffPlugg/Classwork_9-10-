@@ -36,10 +36,10 @@
 Максимальная глубина: 10994 м
 
 --- Желобные впадины (по убыванию глубины) ---
-Mariana              Pacific          10994 trench 
-Kuril-Kamchatka      Pacific          10542 trench 
-Philippine           Pacific          10540 trench 
-South_Sandwich       Atlantic          8428 trench 
+Mariana              Pacific          10994 trench
+Kuril-Kamchatka      Pacific          10542 trench
+Philippine           Pacific          10540 trench
+South_Sandwich       Atlantic          8428 trench
 Peru-Chile           Pacific           8065 trench
 Java                 Indian            7192 trench
 Litke                Arctic            5449 trench
