@@ -119,10 +119,71 @@ void modifyByDepth(Trench trenches[], int target_depth, const char* new_name, De
     }
 }
 
+// --- ЗАДАЧА 1: Работа с текстовым файлом ---
+
+// Запись 2 колонок: Название и Тип (enum в виде числа)
+void writeToTextFile(Trench trenches[], int size, const char* filename) {
+    ofstream fout(filename);
+    if (fout.is_open()) {
+        for (int i = 0; i < size; i++) {
+            fout << trenches[i].name << " " << trenches[i].type << "\n";
+        }
+        fout.close();
+    }
+}
+
+// Чтение текстового файла и обновление поля type
+void readFromTextFileAndUpdate(Trench trenches[], int size, const char* filename) {
+    ifstream fin(filename);
+    if (fin.is_open()) {
+        string name;
+        int type_val;
+        while (fin >> name >> type_val) {
+            for (int i = 0; i < size; i++) {
+                if (strcmp(trenches[i].name, name.c_str()) == 0) {
+                    trenches[i].type = (DepressionType)type_val;
+                    break;
+                }
+            }
+        }
+        fin.close();
+    }
+}
+
+// --- ЗАДАЧА 2: Работа с бинарным файлом ---
+
+// Запись всего массива структур в бинарный файл
+void writeToBinaryFile(Trench trenches[], int size, const char* filename) {
+    ofstream fout(filename, ios::binary);
+    if (fout.is_open()) {
+        fout.write((char*)trenches, sizeof(Trench) * size);
+        fout.close();
+    }
+}
+
+// Чтение всего массива структур из бинарного файла
+void readFromBinaryFile(Trench trenches[], int size, const char* filename) {
+    ifstream fin(filename, ios::binary);
+    if (fin.is_open()) {
+        fin.read((char*)trenches, sizeof(Trench) * size);
+        fin.close();
+    }
+}
+
 int main() {
     setlocale(LC_ALL, "Russian");
 
     Trench* trenches = init();
+
+    // Выполнение Задачи 1 (Текстовый файл)
+    const char* txt_filename = "trenches.txt";
+    writeToTextFile(trenches, SIZE, txt_filename);
+    readFromTextFileAndUpdate(trenches, SIZE, txt_filename);
+
+    // Выполнение Задачи 2 (Бинарный файл)
+    const char* bin_filename = "trenches.bin";
+    writeToBinaryFile(trenches, SIZE, bin_filename);
+    readFromBinaryFile(trenches, SIZE, bin_filename);
 
     int min_depth = trenches[0].depth;
     int max_depth = trenches[0].depth;
